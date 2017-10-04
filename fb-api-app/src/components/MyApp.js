@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import Api from './Api'
+import createFragment from 'react-addons-create-fragment'; 
+import Api from './Api';
 import graph from 'fb-react-sdk';
-import facebook from './fbSDK'
+import facebook from './fbSDK';
+import FbLogin from './FbLogin';
 
 
 class MyApp extends Component {
@@ -88,23 +90,30 @@ class MyApp extends Component {
             //console.log(this.state.postList[2])
             
             
-            
+            //console.log(com)
             const postlist  = this.state.postList.map((singlePost,key)=>{
+                
+                //({key}=={key}){
+                   // for(let i = 0; i < singlePost.comments.data.length; i++){
+                   //     document.write("<li>"+i+"</li>");    
+                   // }
+                //}
                 
                 return(
                     <li key={key}>
-                        {singlePost.id}
+                        <img src={singlePost.picture} width='50px' height='50px' />
                         <ol>
-                        
+                            
                         </ol>
-                    </li>  
+                    </li>
                 );
             })
             
         return(
             <div>
+            <FbLogin />
             <ul>
-              {this.makelist()}
+            
             </ul>
             </div>
         )

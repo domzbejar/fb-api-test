@@ -27,7 +27,7 @@ const Api = {
     fbget(){
         let node = "636670303104398";
         let field = "fields=picture,posts{picture,permalink_url,description,comments,name},name";
-        let token = "EAACEdEose0cBABsjlcRCsKVYPZAhUAsXGuxHY7qZAGoR2XmyJCLNGpWVVRxhq4sapNhpTx4hZAEl0qM1EMEbdRgSL4eWNRhaim4nhMkb3hB3M6BQ2eHlSQVtPJMrC8QPValzx6pR6Y3K4VNJw6YUNwjGWwmS3DWIVPziHhucFRgMv0PU2i3ulWQqkAJ9JgZD";
+        let token = "EAACEdEose0cBAB2PZCFQGqBNab6RR6EnmDOMFrBUoQXhLOHoniZCRYrhXbdTyZAMdZCZCcenmGXsKgW5KiJlSTm8eWZCT5ZCKlZBWiT1OUusiC0KihqhjliT83bZAATZArbjRUQR78jH26AbySxYYplesJSXUQW53ZCqnKLhJJZC2JFZBCN4pS5xbfI3ceJp8c34PXhQZD";
         return fetch(fbapi+'/'+node+'?'+field+'&access_token='+token);
     }
     
