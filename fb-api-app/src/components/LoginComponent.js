@@ -1,41 +1,58 @@
-import React from 'react';
-const FB = window.FB
+import React, {Component} from 'react';
+const FB = window.FB;
 
-class LoginComponent extends React.Component {
+class LoginComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        
-    };
+        name : 'User',
+        id :'',
+        change: true
+    }
   }
-  
 
   loadFbLoginApi() {
-    
+
         window.fbAsyncInit = function() {
+            var pageAccessToken;
             this.FB.init({
                 appId            : '377361202648432',
                 autoLogAppEvents : true,
                 status           : true,
                 xfbml            : true,
                 version          : 'v2.9'
-            });
+            })
             this.FB.getLoginStatus(function(response) {
+                //this.statusChangeCallback(response);
+
                 if (response.status === 'connected') {
-                    console.log(response.status);
+                    const pageAccessToken = response.authResponse.accessToken;
+                    let field = "fields=picture,posts,name";
+                    let fbapi ="https://graph.facebook.com";
+                    fetch(fbapi+'/me?'+field+'&access_token='+pageAccessToken).then((res)=>{
+                        res.json().then((data)=>{
+                            console.log(data);
+                            let user = `<h1>Hello ${data.name}</h1>
+                                        <img src=${data.picture.data.url} />
+                                        <p>${data.posts.data[0].message}</p>
+                                        
+                            `
+                            document.getElementById('status').innerHTML=user;
+                            
+                        })
+                    })
+                 
+                
                   } else if (response.status === 'not_authorized') {
                       console.log("Please log into this app.");
                   } else {
                       console.log("Please log into this facebook.");
                   }
             });
-            this.FB.api('/me', function(response) {
-                console.log(JSON.stringify(response));
-                console.log('Successful login for: ' + response.name);
-            });
             
         };
-
+        
+        
         console.log("Loading fb api");
           // Load the SDK asynchronously
         (function(d, s, id) {
@@ -49,12 +66,13 @@ class LoginComponent extends React.Component {
 
   componentDidMount() {
         this.loadFbLoginApi()
-
     }
 
+    
+    
     testAPI() {
       console.log('Welcome!  Fetching your information.... ');
-      FB.api('/me', function(response) {
+      this.FB.api('/me', function(response) {
       console.log('Successful login for: ' + response.name);
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';
@@ -65,7 +83,7 @@ class LoginComponent extends React.Component {
       console.log('statusChangeCallback');
       console.log(response);
       if (response.status === 'connected') {
-        this.testAPI();
+        this.testAPI.bind(this);
       } else if (response.status === 'not_authorized') {
           console.log("Please log into this app.");
       } else {
@@ -75,21 +93,29 @@ class LoginComponent extends React.Component {
 
     checkLoginState() {
       FB.getLoginStatus(function(response) {
-        this.statusChangeCallback(response);
-      }.bind(this));
+        //this.statusChangeCallback(response);
+        console.log(response)
+      });
     }
 
     handleFBLogin() {
-        FB.login(this.checkLoginState());
-        }
+        this.FB.login(this.checkLoginState.bind(this));
+    }
 
     render() {
         return (
                 <div>
-                    <h1>WELCOME</h1>
-                    <p id="status"></p>
-                    <div id="fb-root"></div>
-                    <div className="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false"></div>
+                <div id="status"></div>
+                    <div
+                        className="fb-login-button"
+                        data-max-rows="1"
+                        data-size="medium"
+                        data-button-type="continue_with"
+                        data-width="300px"
+                        data-scope="public_profile, email"
+                        data-auto-logout-link="true"
+                        data-use-continue-as="false"
+                    ></div>
                 </div>
                );
     }
