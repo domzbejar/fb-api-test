@@ -1,5 +1,4 @@
 import React, {Components} from 'react';
-import graph from 'fb-react-sdk';
 //const url = "http://rest.learncode.academy/api/alien/friends"
 
 const accesToken = "EAAFXNUBvlXABANsPrfvaVhnregUZAmitz9WQ27QYj0C3XPjhnoDVky82A4BoyytbZBIO08jhAOwprn9NYdILFPpRQFZC1q8PTlC20KM3D1jDwyAbEaWMRxwR14KZAdSknCyJZB67xtZCjhqR2dLMjpZCDdMSZBX79zzXnoQrEI67f4p8M1FgtPdrM3sidroaryLQysLHyZAmwzgZDZD";
