@@ -34,8 +34,7 @@ class LoginComponent extends Component {
                             console.log(data);
                             let user = `<h1>Hello ${data.name}</h1>
                                         <img src=${data.picture.data.url} />
-                                        <p>${data.posts.data[0].message}</p>
-                                        
+                                        <p>${data.posts.data[0].message}</p> 
                             `
                             document.getElementById('status').innerHTML=user;
                             

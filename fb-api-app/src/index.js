@@ -5,9 +5,9 @@ import './index.css';
 import MyApp from './components/MyApp';
 import FbLogin from './components/FbLogin';
 import Layout from './components/Layout';
-import LoginComponent from './components/LoginComponent';
+import LoginComponentDev from './components/LoginComponentDev';
 
 ReactDOM.render(
-<LoginComponent />,
+<LoginComponentDev />,
 document.getElementById('root'));
 
