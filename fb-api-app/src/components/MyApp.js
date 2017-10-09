@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import createFragment from 'react-addons-create-fragment'; 
 import Api from './Api';
-import graph from 'fb-react-sdk';
 import facebook from './fbSDK';
 import FbLogin from './FbLogin';
 
