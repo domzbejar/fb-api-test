@@ -29,11 +29,27 @@ class LoginComponentDev extends Component {
               console.log('Logged in.');
                 let pageAccessToken = response.authResponse.accessToken;
                 let node = response.authResponse.userID;
-                FB.api(node,{fields: 'id,email,name,cover,friends{email,photos}',access_token : pageAccessToken },function(response) {
-                    //console.log(response.name);
-                    if(response.name){
-                        document.getElementById('name').innerHTML +=response.name
-                    }
+                console.log(node);
+                FB.api(node,'get',{fields: 'id,email,name,cover,picture,photos,friends{email,photos}',access_token : pageAccessToken },function(response) {
+                    console.log(response);
+                        FB.api(response.id+'?fields=photos,picture,cover,feed{picture}',{access_token : pageAccessToken},function(response){
+                        //FB.api(response.id+'/photos/uploaded',{access_token : pageAccessToken},function(response){
+                            console.log(response);
+                            console.log(response.feed.data);
+                            for(let i = 0; i < response.feed.data.length; i++){
+                                document.getElementById('status').innerHTML+="<img src="+response.feed.data[i].picture+"></br>";
+                            }
+                            
+                            //document.getElementById('status').innerHTML+="<img src="+response.feed.data[1].picture+">";
+                            //document.getElementById('status').innerHTML+="<img style='height:50px;width:50px;' src='https://graph.facebook.com/"+response.feed.data[1].id+"/picture/'>";
+                            //document.getElementById('status').innerHTML+="<img style='height:50px;width:50px;' src='https://graph.facebook.com/"+response.feed.data[1].picture+"/'>";
+                            //document.getElementById('status').innerHTML +="<h3>"+response.photos.data[0].name+"</h3>";
+                        });
+                        var img = "<img src="+response.picture.data.url+"/>";
+                        document.getElementById('name').innerHTML += response.name
+                        //document.getElementById('status').innerHTML+="<img src="+response.picture.data.url+"/>";
+                        document.getElementById('status').innerHTML +="<h3>"+response.email+"</h3>";
+                    
                 });
             }else {
                 document.getElementById('name').innerHTML +="UNKNOWN" 
@@ -42,7 +58,7 @@ class LoginComponentDev extends Component {
       };
    
      
-    
+    https://graph.facebook.com/10155674930357940/photos
      
         console.log("Loading fb api");
           // Load the SDK asynchronously
@@ -147,7 +163,7 @@ class LoginComponentDev extends Component {
         console.log(this.state.token);
         return (
                 <div>
-                <h1 id="name">Hello {this.state.pogi}</h1>
+                <h1 id="name">Hello </h1>
                 <div id="status"></div>
                     <div className="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="true" data-use-continue-as="false"></div>
                 </div>
